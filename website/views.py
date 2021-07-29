@@ -38,15 +38,23 @@ def kurs_profil(id):
     kurs = Kurs.query.get_or_404(id)
     return render_template("kurs_profil.html", user=current_user, kurs = kurs)
 
-@views.route('/duzenle', methods=['GET', 'POST'])
-def update_profil():
-    return render_template("duzenle.html", user = current_user)
+@views.route('/hesap_ayarları', methods=['GET', 'POST'])
+def update_hesap_ayar():
+    return render_template("hesap_ayarları.html", user = current_user)
     #Eski Hali
     #current_user.role = 1;
     #db.session.commit()
     #flash('Artık eğitmensiniz!', category='success')
     #return redirect('/')
     
+@views.route('/profil_ayarları', methods=['GET', 'POST'])
+def update_profil():
+    return render_template("profil_ayarları.html", user = current_user)
+
+@views.route('/foto_ayarları', methods=['GET', 'POST'])
+def update_foto():
+    return render_template("foto_ayarları.html", user = current_user)
+
 
 @views.route('/profil/<int:id>', methods=['GET', 'POST'])
 @login_required
