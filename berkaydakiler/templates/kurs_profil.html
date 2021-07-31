@@ -24,22 +24,10 @@
                             </div>
                             <h2 class="mt-5">Kurs İçeriği</h2>
                             <div class="align-items-start mt-4">
-                                <div class="nav flex-column nav-pills me-3 text-left" id="v-pills-tab"
-                                    aria-orientation="vertical">
-
-                                    <a href="#" style="text-align:left; padding-left:6px"
-                                        class="btn btn-outline-warning pull-left">Ders İsmqwwwwwwwwwwwwqi</a>
-                                    <a href="#" class="text-left btn btn-primary btn-block "><span class="iconify"
-                                            data-icon="bx:bx-edit-alt" data-inline="true"></span> Start a discussionDers
-                                        İsmi</a>
-                                    <a href="#" class="btn btn-outline-dark btn-warning ">Ders İsmi</a>
-                                    <a href="#" class="btn btn-outline-dark btn-warning ">Ders İsmi</a>
-                                    <a href="#" class="btn btn-outline-dark btn-warning mt-1">Ders İsmi</a>
-                                    <a href="#" class="btn btn-outline-dark btn-warning mt-1">Ders İsmi</a>
-                                    <a href="button" class="btn btn-outline-success btn-block text-left">
-                                        <span class="iconify" data-icon="bx:bx-edit-alt" data-inline="true"></span> Start a
-                                        discussion
-                                    </a>
+                                <div class="nav flex-column nav-pills me-3 text-left" id="v-pills-tab" aria-orientation="vertical">
+                                    {% for ders in dersler %}
+                                    <a href="/ders/{{ders.id}}" class="btn btn-outline-dark btn-warning ">{{ders.baslik}}</a>
+                                    {% endfor %}
 
                                 </div>
                             </div>  
