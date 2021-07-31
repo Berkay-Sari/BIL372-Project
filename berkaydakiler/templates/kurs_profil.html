@@ -1,0 +1,104 @@
+{% extends "temel.html" %} {% block title %}kurs_profil{% endblock %} {% block content %}
+    <div class="container mt-3">
+        <div class="row mt-5">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+
+                            <div class="card-body">
+                                <h3>{{kurs.isim}}</h3>
+                                <p class="card-text">{{kurs.kisa_aciklama}}</p> 
+                                <a href="#" class="card-text">{{kurs.kategori}} kursun kategorisi ve yapabilirsek arama linki.</a>
+                                Dersin Eğitmeni -> 
+                                <a href="/profil/{{egitmen.id}}" class="card-text">{{egitmen.first_name}} {{egitmen.last_name}}</a>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-warning btn-dark">Kursa
+                                            kaydol</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    </div>
+                                    <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                            <h2 class="mt-5">Kurs İçeriği</h2>
+                            <div class="align-items-start mt-4">
+                                <div class="nav flex-column nav-pills me-3 text-left" id="v-pills-tab"
+                                    aria-orientation="vertical">
+
+                                    <a href="#" style="text-align:left; padding-left:6px"
+                                        class="btn btn-outline-warning pull-left">Ders İsmqwwwwwwwwwwwwqi</a>
+                                    <a href="#" class="text-left btn btn-primary btn-block "><span class="iconify"
+                                            data-icon="bx:bx-edit-alt" data-inline="true"></span> Start a discussionDers
+                                        İsmi</a>
+                                    <a href="#" class="btn btn-outline-dark btn-warning ">Ders İsmi</a>
+                                    <a href="#" class="btn btn-outline-dark btn-warning ">Ders İsmi</a>
+                                    <a href="#" class="btn btn-outline-dark btn-warning mt-1">Ders İsmi</a>
+                                    <a href="#" class="btn btn-outline-dark btn-warning mt-1">Ders İsmi</a>
+                                    <a href="button" class="btn btn-outline-success btn-block text-left">
+                                        <span class="iconify" data-icon="bx:bx-edit-alt" data-inline="true"></span> Start a
+                                        discussion
+                                    </a>
+
+                                </div>
+                            </div>  
+                            <h1 class="mt-5">Açıklama</h1>
+                            <p> 
+
+                                {{kurs.uzun_aciklama}}
+                                kursun uzun açıklaması kursun uzun açıklamasıkursun uzun açıklamasıkursun uzun
+                                açıklamasıkursun uzun açıklamasıkursun uzun açıklamasıkursun uzun açıklamasıkursun uzun
+                                açıklamasıkursun uzun açıklamasıkursun uzun açıklaması
+                                kursun uzun açıklamasıkursun uzun açıklaması
+                                kursun uzun açıklaması
+                                kursun uzun açıklaması
+                                kursun uzun açıklaması
+                                kursun uzun açıklaması
+                                kursun uzun açıklaması
+                                kursun uzun açıklaması
+                                kursun uzun açıklamasıkursun uzun açıklaması
+
+                                kursun uzun açıklaması
+                                kursun uzun açıklaması
+                                kursun uzun açıklaması
+                                kursun uzun açıklaması
+                                kursun uzun açıklaması
+                                kursun uzun açıklaması
+
+
+                            </p>
+
+
+                            <div class="col-lg-4">
+                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+                        
+                                <h2>Heading</h2>
+                                <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
+                                <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+                              </div><!-- /.col-lg-4 -->
+                    
+
+                        </div>
+                        <div class="col-sm-4" syle="position:static;">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>Kurs fotoğrafı</title>
+                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+                                    dy=".3em">Kurs fotoğrafı</text>
+                            </svg>
+                            <button type="button"
+                                class="btn btn-sm btn-outline-warning btn-dark align-items-center">Kursa
+                                kaydol</button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+{% endblock %}
