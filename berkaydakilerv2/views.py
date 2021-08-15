@@ -84,6 +84,15 @@ def ders(id):
     egitmen = User.query.get_or_404(egitmen_id) 
     return render_template("ders.html", user=current_user, ders = ders, kurs = kurs, egitmen = egitmen)
 
+@views.route('/ders_duzenle/<int:id>', methods=['GET', 'POST'])
+@login_required
+def ders_duzenle(id):
+    ders = Ders.query.get_or_404(id)
+    kurs = Kurs.query.get_or_404(ders.kurs_id)
+    egitmen_id = kurs.egitmen_id
+    egitmen = User.query.get_or_404(egitmen_id) 
+    return render_template("ders_duzenle.html", user=current_user, ders = ders, kurs = kurs, egitmen = egitmen)
+
 @views.route('/hesap_ayarları', methods=['GET', 'POST'])
 def hesap_ayarları():
     if request.method == 'POST':
@@ -205,6 +214,11 @@ def update_foto():
             flash('Profil resmi değiştirildi!', category ='success')
             return render_template("foto_ayarları.html", user = current_user)
     return render_template("foto_ayarları.html", user = current_user)
+
+@views.route('/egitmen_olarak_katil', methods=['GET', 'POST'])
+@login_required
+def egitmen_yap():
+    return render_template("egitmen_olarak_katil.html", user=current_user)
 
 @views.route('/profil/<int:id>', methods=['GET', 'POST'])
 @login_required
