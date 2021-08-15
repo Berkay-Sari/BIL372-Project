@@ -25,8 +25,8 @@ def home():
         flash('Kurs eklendi!', category='success')
         """
         looking_for = request.form.get('arama')
-        
-        return redirect(url_for('views.arama', looking_for = looking_for))
+        if looking_for:
+            return redirect(url_for('views.arama', looking_for = looking_for))
 
     result = db.engine.execute("SELECT Kurs.id,isim,kategori,first_name,last_name FROM Kurs, User WHERE Kurs.egitmen_id = User.id")
     
@@ -49,6 +49,22 @@ def kurslarim():
 
     egitmenler = list(dict.fromkeys(egitmenler))
     return render_template("kurslarım.html", user=current_user, kurslar = kurslarim, egitmenler = egitmenler)
+
+@views.route('/egitmenkurslari', methods=['GET', 'POST'])
+@login_required
+def egitmenkurslari():
+    egitmen = Egitmen.query.filter_by(id=current_user.id).first()
+    kurslarim = egitmen.verilen_kurslar
+
+    return render_template("egitmenkurslari.html", user=current_user, egitmen = egitmen, kurslar = kurslarim)
+
+@views.route('/yeni_kurs', methods=['GET', 'POST'])
+@login_required
+def yeni_kurs():
+    egitmen = Egitmen.query.filter_by(id=current_user.id).first()
+    kurslarim = egitmen.verilen_kurslar
+
+    return render_template("yeni_kurs.html", user=current_user, egitmen = egitmen, kurslar = kurslarim)
 
 @views.route('/kurs_profil/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -98,15 +114,33 @@ def hesap_ayarları():
 def update_profil():
     if request.method == 'POST':
         isim = request.form.get('firstName')
+        if not isim: 
+            isim = current_user.first_name
         soy_isim = request.form.get('lastName')
+        if not soy_isim:
+            soy_isim = current_user.last_name
         unvan = request.form.get('Ünvan')
+        if not unvan:
+            unvan = current_user.unvan
         tel = request.form.get('Tel')
+        if not tel:
+            tel = current_user.telefon
         adres = request.form.get('adres')
+        if not adres:
+            adres = current_user.adres
         github = request.form.get('github')
+        if not github:
+            github = current_user.github
         linkedin = request.form.get('linkedin')
+        if not linkedin:
+            linkedin = current_user.linkedin
         twitter = request.form.get('twitter')
+        if not twitter:
+            twitter = current_user.twitter
         facebook = request.form.get('facebook')
         instagram = request.form.get('instagram')
+        if not instagram:
+            instagram = current_user.instagram
         youtube = request.form.get('youtube')
         
         ozgecmis = "ozgecmis"
@@ -117,9 +151,9 @@ def update_profil():
             flash('First name must be greater than 1 character.', category='error')
         elif len(soy_isim) < 2:
             flash('Last name must be greater than 1 character.', category='error')
-        elif not(str.isdecimal(tel)):
+        elif tel and not(str.isdecimal(tel)):
             flash('Telefon numarası harf içermemeli.', category='error')
-        elif len(tel) != 10:
+        elif tel and len(tel) != 10:
             flash('Telefon numarası 10 rakamdan oluşmalı.', category='error')
         else:
             current_user.first_name = isim
