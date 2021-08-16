@@ -1,0 +1,90 @@
+{% extends "temel.html" %} {% block title %}Hesap{% endblock %} {% block content
+    %}
+    
+    <div class="container mt-5 btn-light">
+        <div class="row">
+            <div class="col-sm-8">
+                <h3>GÜNCELLENECEK DERS</h3>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-8">
+                <table id="productTable" class="table table-bordered table-condensed table-striped text-dark bg-white">
+                    <thead>
+                        <tr>
+                            
+                            <th>Ders Başlığı</th>
+                            <th>Ders Açıklaması</th>
+                            <th>Dersin URL si</th>
+
+                        </tr>
+                    </thead>
+                    
+                    <thead>
+                        <tr>
+
+                            <th>{{ders.baslik}}</th>
+                            <th>{{ders.aciklama}}</th>
+                            <th>{{ders.video_url}}</th>
+                            
+                        </tr>
+                    </thead>
+                    
+                </table>
+            </div>
+        </div>
+        
+        
+        <div class="row mt-5">
+            <div class="col-sm-8 card" style="background-color: lightgray">
+                <h4>Dersi Güncelleme</h4>
+                <form method="POST">
+                <div class="panel" >
+                    <div class="panel-heading">
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="productname">
+                                <h6>Ders Başlığı</h6>
+                            </label>
+                            <input type="text" class="form-control"
+                                name="baslik" id="productname" />
+                        </div>
+                         <div class="form-group">
+                            <label for="introdate">
+                                <h6>Ders Açıklaması</h6>
+                            </label>
+                            <textarea type="text" class="form-control" id="introdate"
+                            name="aciklama" rows="3"></textarea>
+                  
+                        </div>
+                        <div class="form-group">
+                            <label for="url">
+                                <h6>Ders URL'i</h6>
+                            </label>
+                            <input type="url" name="url" class="form-control"  id="url" />
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button type="submit" id="ekle" class="btn btn-warning btn-outline-dark">
+                                    Güncelle
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <br>   
+                </form> 
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <form action="/kurs_ayarlari/{{kurs.id}}">
+        <input type="submit" value="Kurs Ayarları" id="kaydol"
+            class="btn btn-outline-dark btn-warning" />
+    </form>
+    {% endblock %}

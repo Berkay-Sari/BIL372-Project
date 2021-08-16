@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/ky.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>kurs_profil</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+    <h1>{{puan}}</h1>
+    <header class="p-4 mb-3 border-bottom bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+                <a href="/" style="font-size: 20px;"
+                    class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">my<span
+                        style="font-weight: bold; font-size: 30px;" class="text-warning">ETÜ</span></a>
+                <div
+                    class="ml-5 px-3 d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                </div>
+                <ul class=" text-warning nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/" class="nav-link px-2 text-white">Ana Sayfa</a></li>
+
+
+
+                    <li class="dropdown"><a class="dropdown-toggle nav-link px-2 text-warning" data-toggle="dropdown"
+                            href="#">Kategoriler <span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-warning">
+                            {% for kategori in kategoriler %}
+                            <li><a class="dropdown-item text-warning" href="/arama/{{kategori}}">{{ kategori }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+
+
+                    <li><a href="/kurslarım" class="nav-link px-2 text-warning">Kurslarım</a></li>
+
+                    <!--bu kısım if ile değişicek-->
+                    {% if current_user.role == 0 %}
+                    <li><a href="/egitmen_ol" class="nav-link px-2 text-warning">Eğitmen olarak katıl</a></li>
+                    {% else %}
+                    <li><a href="/egitmenkurslari" class="nav-link px-2 text-warning">Yayınlanan Kurslar</a></li>
+                    {% endif %}
+                </ul>
+
+                <form class="col-12 col-lg-4 mb-3 mb-lg-0 me-lg-3" method="POST">
+                    <input type="search" class="form-control form-control-dark" placeholder="Kurs ara..."
+                        aria-label="Search" name=arama id=arama>
+                </form>
+
+                <div class="dropdown text-right">
+                    <a href="#" class="d-block link-warning text-decoration-none dropdown-toggle " id="dropdownUser1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../static/profile_pics/{{current_user.image_file}}" alt="mdo" width="32" height="32"
+                            class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="/kurslarım">Kurslarım</a></li>
+                        <li><a class="dropdown-item" href="/profil_ayarları">Ayarlar</a></li>
+                        <li><a class="dropdown-item" href="/profil/{{current_user.id}}">Profil</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item nav-link" style="color:red;" id="logout" href="/logout">Oturumu
+                                Kapat</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <!-- navbar bitti -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <div class="container">
+
+        <!-- block     start   -->
+        <div class="container mt-3">
+            <div class="row mt-5">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-7">
+
+                                <div class="card-body">
+                                    <h3>{{kurs.isim}}</h3>
+                                    <p class="card-text">{{kurs.kisa_aciklama}}</p>
+                                    <a href="#" class="card-text">{{kurs.kategori}} kursun kategorisi ve yapabilirsek
+                                        arama
+                                        linki.</a>
+                                    Dersin Eğitmeni ->
+                                    <a href="/profil/{{egitmen.id}}" class="card-text">{{egitmen.first_name}}
+                                        {{egitmen.last_name}}</a>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        {% if kayit_bilgisi == 0 %}
+                                        <form action="/kursa_kaydol/{{kurs.id}}">
+                                            
+                                            <input type="submit" value="Kursa Kaydolun" id="kaydol"
+                                                class="btn btn-lg btn-outline-dark btn-warning" />
+                
+                                        </form>
+                                        {% else %}
+                                        <form action="/kursu_dropla/{{kurs.id}}">
+                                            
+                                            <input type="submit" value="Kursu Bırakın" id="sil"
+                                                class="btn btn-lg btn-outline-dark btn-warning" />
+                                            
+                                        </form>
+                                        {% endif %}
+
+                                        <small class="text-muted">kursun yayınlanma tarihi : {{kurs.date}}</small>
+                                    </div>
+                                </div>
+                                <h2 class="mt-5">Kurs İçeriği</h2>
+                                <div class="align-items-start mt-4">
+                                    <div class="nav flex-column nav-pills me-3 text-left" id="v-pills-tab"
+                                        aria-orientation="vertical">
+                                        {% for ders in dersler %}
+                                        <a href="/ders/{{ders.id}}"
+                                            class="btn btn-outline-dark btn-warning ">{{ders.baslik}}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5" syle="position:static;">
+
+                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                    preserveAspectRatio="xMidYMid slice" focusable="false">
+                                    <title>Kurs fotoğrafı</title>
+                                    <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%"
+                                        fill="#eceeef" dy=".3em">Kurs fotoğrafı</text>
+                                </svg>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <h1 class="mt-5">Açıklama</h1>
+                    <p>
+                    <pre>{{kurs.uzun_aciklama}}</pre>
+                    </p>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class=" mt-5 text-center">
+                                <div class="row">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-4">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="{{egitmen.first_name}}
+                                {{egitmen.last_name}}" class="rounded-circle" style="vertical-align:middle"
+                                            width="160">
+
+                                        <h2>{{egitmen.first_name}}
+                                            {{egitmen.last_name}}</h2>
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                </div>
+                                <p>Some representative placeholder content for the three columns of text below the
+                                    carousel.
+                                    This is the first column.</p>
+                                <p><a class="btn btn-outline-dark btn-warning " href="/profil/{{egitmen.id}}">Detaylı
+                                        İncele
+                                        &raquo;</a></p>
+                            </div>
+                            <h2 class="mt-5">Kurs Yorumları</h2>
+                            <div class="row mt-3">
+                                <div class="col-2"> <img src="../static/profile_pics/{{current_user.image_file}}" width="70"
+                                        class="rounded-circle mt-2">
+                                     </div>
+                                <div class="col-10">
+                                    <div class="ml-2">
+                                        <form method="POST">
+                                            <h4>Yorum Yap</h4>
+                                            <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                                                <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input
+                                                    type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio"
+                                                    name="rating" value="2" id="2"><label for="2">☆</label>
+                                                <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                                            </div>
+                                            <div class="comment-area"> <textarea class="form-control" name="yorum"
+                                                    placeholder="Kurs hakkındaki görüşleriniz neler?" rows="3"></textarea></div>
+                                            <div class="comment-btns mt-2">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="pull-left"> <button
+                                                                class="btn btn-outline-dark btn-warning btn-sm">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="pull-right"> <button type="submit"
+                                                                class="btn btn-outline-dark btn-warning send btn-sm">Send
+                                                                <i class="fa fa-long-arrow-right ml-1"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <!-- for start -->
+                            {% for yorum in yorumlar %}
+                            <hr class=" bg-dark mt-5">
+                            <div class="row mt-3">
+                                <div class="col-2"> <img src="../static/profile_pics/{{yorum.image_file}}" width="70"
+                                        class="rounded-circle mt-2">
+                                </div>
+                                <div class="col-10">
+                    
+                                    <h4>{{yorum.first_name}} {{yorum.last_name}}</h4>
+                                    <div class="rating" style="width: 100%;">
+                                        {%for i in range(5-yorum.puan) %}
+                                        <img style="width: 18px;" src="data:image/png;base64,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" alt="">
+                                        {% endfor %}
+                                        <br>
+                                        {%for i in range(yorum.puan) %}
+                                        <img style="width: 20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Orange_star.svg/1200px-Orange_star.svg.png" alt="">
+                                        {% endfor %}
+                                    </div>
+                                    
+                                    <div>
+                                        <p>
+                                            {{yorum.icerik}}
+                                        </p>
+                                    </div>
+                    
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <!-- for end -->
+                    
+                    
+                    
+                            </br>
+                        </div>
+
+
+                        
+
+                        <div class="col-sm-4"></div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+        </div><!-- block     finish   -->
+
+
+
+
+
+
+
+
+
+
+        <hr class="featurette-divider bg-dark mt-5">
+        <div class="bg-dark pt-4 pb-1  ">
+            <footer class="container bg-dark ">
+                <p class="float-end"><a class="text-warning" href="#">Back to top</a></p>
+                <a href="/" style="font-size: 20px;"
+                    class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">my<span
+                        style="font-weight: bold; font-size: 30px;" class="text-warning">ETÜ</span></a>
+                <p class="text-white">&copy; 2003–2021 TOBB ETÜ, Inc.</p>
+            </footer>
+        </div>
+
+
+
+</body>
