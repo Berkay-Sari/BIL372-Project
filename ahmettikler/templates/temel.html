@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+        <title>{% block title %}Hesap{% endblock %}</title>
+</head>
+<body> 
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+
+    <header class="p-4 mb-3 border-bottom bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+                <a href="/" style="font-size: 20px;"
+                    class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">my<span
+                        style="font-weight: bold; font-size: 30px;" class="text-warning">ETÜ</span></a>
+                <div
+                    class="ml-5 px-3 d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                </div>
+                <ul class=" text-warning nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/" class="nav-link px-2 text-white">Ana Sayfa</a></li>
+
+
+
+                    <li class="dropdown"><a class="dropdown-toggle nav-link px-2 text-warning" data-toggle="dropdown" href="#">Kategoriler <span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-warning">
+                            {% for kategori in kategoriler %}
+                            <li><a class="dropdown-item text-warning" href="/arama/{{kategori}}">{{ kategori }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+
+
+                    <li><a href="/kurslarım" class="nav-link px-2 text-warning">Kurslarım</a></li>
+
+                    <!--bu kısım if ile değişicek-->
+                    {% if current_user.role == 0 %}
+                    <li><a href="/egitmen_ol" class="nav-link px-2 text-warning">Eğitmen olarak katıl</a></li>
+                    {% else %}
+                    <li><a href="/egitmenkurslari" class="nav-link px-2 text-warning">Yayınlanan Kurslar</a></li>
+                    {% endif %}
+                </ul>
+
+                <form class="col-12 col-lg-4 mb-3 mb-lg-0 me-lg-3" method="POST">
+                    <input type="search" class="form-control form-control-dark" placeholder="Kurs ara..."
+                        aria-label="Search" name=arama id=arama>
+                </form>
+
+                <div class="dropdown text-right">
+                    <a href="#" class="d-block link-warning text-decoration-none dropdown-toggle " id="dropdownUser1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../static/profile_pics/{{current_user.image_file}}" alt="mdo" width="32" height="32"
+                            class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                        <li><p class="dropdown-item"> {{current_user.first_name}}  {{current_user.last_name}}</p></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="/kurslarım">Kurslarım</a></li>
+                        <li><a class="dropdown-item" href="/profil_ayarları">Ayarlar</a></li>
+                        <li><a class="dropdown-item" href="/profil/{{current_user.id}}">Profil</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item nav-link" style="color:red;" id="logout" href="/logout">Oturumu Kapat</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </header>
+    <!-- navbar bitti -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %} {% if category ==
+        'error' %}
+        <div class="alert alert-danger alter-dismissable fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% else %}
+        <div class="alert alert-success alter-dismissable fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <div class="container">{% block content %} {% endblock %}</div>
+
+
+
+
+    <hr class="featurette-divider bg-dark mt-5">
+    <div class="bg-dark pt-4 pb-1  ">
+        <footer class="container bg-dark ">
+            <p class="float-end"><a class="text-warning" href="#">Back to top</a></p>
+            <a href="/" style="font-size: 20px;"
+                class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">my<span
+                    style="font-weight: bold; font-size: 30px;" class="text-warning">ETÜ</span></a>
+            <p class="text-white">&copy; 2003–2021 TOBB ETÜ, Inc.</p>
+        </footer>
+    </div>
+
+
+    
+</body>
