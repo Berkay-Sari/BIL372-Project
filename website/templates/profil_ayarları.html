@@ -1,0 +1,140 @@
+{% extends "temel.html" %} {% block title %}Hesap{% endblock %} {% block content%}
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+    
+                <div class="nav flex-column nav-tabs mt-5 ">
+                    <ul class="nav nav-tabs text-warning">
+                        <li class="nav-item">
+                            <a class="nav-link active text-white bg-secondary" aria-current="page" href="#">Profil Bilgileri</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/foto_ayarları">Fotoğraf Ekleme</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/hesap_ayarları">Hesap Bilgileri</a>
+                        </li>
+                        {% if current_user.role == 0 %}
+                        <li><a href="/egitmen_ol" class="nav-link text-dark ">Eğitmen olarak katıl</a></li>
+                        {% else %}
+                        <li><a href="/yeni_kurs" class="nav-link text-dark">Kurs Yayınla</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+    
+    
+    
+                <form class="mt-5" method="POST">
+                    <h3>Değiştirmek İstediğiniz Profil Bilgilerini Girin</h3>
+                    <div class="row mt-4">
+                        <div class="col-sm-5 mt-2">
+    
+                            <div class="form-group mb-3">
+                                <label for="firstName" class="form-label">İsim</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName"
+                                    placeholder="{{current_user.first_name}}" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="lastName" class="form-label">Soy İsim</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName"
+                                    placeholder="{{current_user.last_name}}" />
+                            </div>
+    
+                            <div class="form-group mb-3">
+                                <label for="Ünvan" class="form-label">Ünvan</label>
+                                <input type="text" class="form-control" id="Ünvan" name="Ünvan"
+                                    placeholder="{{current_user.unvan}}" />
+                            </div>
+    
+                            <div class="form-group mb-3">
+                                <label for="Tel" class="form-label">Telefon Numarası</label>
+                                <input type="text" class="form-control" id="Tel" name="Tel"
+                                    placeholder="{{current_user.telefon}}" />
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="adres" class="form-label">Adres</label>
+                                <input type="text" class="form-control" id="adres" name="adres"
+                                    placeholder="{{current_user.adres}}" />
+                            </div>
+
+                            {% if current_user.role == 1 %}
+                            <div class="form-group mb-3">
+                                <label for="ozgecmis" class="form-label">Özgeçmiş</label>
+                                <textarea type="text" class="form-control" id="ozgecmis" name="ozgecmis"
+                                    placeholder="{{egitmen.ozgecmis}}" rows="4"></textarea>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="age" class="form-label">Yas</label>
+                                <textarea type="text" class="form-control" id="age" name="age"
+                                    placeholder="{{egitmen.age}}"></textarea>
+                            </div>
+                            {% endif %}
+    
+                        </div>
+                        <div class="col-sm-1"> </div>
+                        <div class="col-sm-5">
+                            <div class="form-group mt-2">
+                                <label for="github" class="form-label">Github</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon3">http://www.github.com/</span>
+                                    <input type="text" class="form-control" id="github" name="github"
+                                    placeholder="{{current_user.github}}" />
+                                    
+                                </div> 
+                            </div>
+
+                            <div class="form-group mt-2">
+                                <label for="twitter" class="form-label">Twitter</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon3">http://www.twitter.com/</span>
+                                    <input type="text" class="form-control" id="twitter" name="twitter"
+                                    placeholder="{{current_user.twitter}}" />
+                                    
+                                </div> 
+                            </div>
+    
+                            <div class="form-group mt-3">
+                                <label for="instagram" class="form-label">Instagram</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon3">http://www.instagram.com/</span>
+                                    <input type="text" class="form-control" id="instagram" name="instagram"
+                                    placeholder="{{current_user.instagram}}" />
+                                    
+                                </div> 
+                            </div>
+                            
+                            <div class="form-group mt-3">
+                                <label for="linkedin" class="form-label">Linkedin</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon3">http://www.linkedin.com/</span>
+                                    <input type="text" class="form-control" id="linkedin" name="linkedin"
+                                    placeholder="{{current_user.linkedin}}" />
+                                    
+                                </div> 
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-1"> </div>
+                    </div>
+    
+    
+                    <br />
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-warning">Kaydet</button>
+                    </div>
+                </form>
+            </br>
+            </br>
+    
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    
+    </div>
+    
+    
+    
+    {% endblock %}

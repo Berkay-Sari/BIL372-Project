@@ -1,0 +1,76 @@
+{% extends "temel.html" %} {% block title %}arama{% endblock %} {% block content %}
+
+<main>
+    <div class="container bg-light align-middle">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-7">
+                <img src="https://www.ozeldersalani.com/frontend/images/ozel-ders-vermek.png" alt="">
+            </div>
+
+            <div class="col-sm-4  align-middle">
+                <br><br><br><br>
+                <h3> İlgi Çekici Bir Kurs Oluşturun </h3>
+
+               <p> İster yıllardır, ister ilk defa eğitim veriyor olun, ilgi çekici bir kurs oluşturabilirsiniz.</p> 
+
+                <a href="/yeni_kurs" class="btn btn-lg btn-warning">Yeni Ders Yayınla</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+
+            <div class="row">
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-10">
+
+                    <div class="container">
+
+
+                        <h1 class="fw-light text-dark">Kurslarım</h1>
+
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 mt-2">
+                            {% for kurs in kurslar %}
+                            <div class="col">
+                                <div class="card p-1 shadow-sm h-100">
+                                    <img class="rounded" src="static/kurs_pics/{{kurs.image_file}}" alt="{{kurs.isim}}"
+                                    class="rounded-rect" width="100%" height="225" >
+
+                                    <div class="card-body">
+                                        <h4>{{kurs.isim}}</h4>
+                                        <p class="card-text">{{kurs.kisa_aciklama}}</p>
+                                        <p class="card-text">Kategori: {{kurs.kategori}}</p>
+                                        <p class="card-text">Eğitmen: {{current_user.first_name}} {{current_user.last_name}}</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <form action="/kurs_profil/{{kurs.id}}">
+                                                    <input type="submit" value="Kursa Git" id="kaydol"
+                                                        class="btn btn-outline-dark btn-warning" />
+                                                </form>
+                                                    <form action="/ders_duzenle/{{kurs.id}}">
+                                                        <input type="submit" value="Kursu Düzenle" id="kaydol"
+                                                            class="btn btn-outline-dark btn-warning" />
+                                                    </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}
