@@ -1,0 +1,64 @@
+{% extends "temel.html" %} {% block title %}Hesap{% endblock %} {% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+
+            <div class="nav flex-column nav-tabs mt-5 ">
+                <ul class="nav nav-tabs text-warning">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/profil_ayarları">Profil Bilgileri</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/foto_ayarları">Fotoğraf Ekleme</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/hesap_ayarları">Hesap Bilgileri</a>
+                    </li>
+                    {% if current_user.role == 0 %}
+                    <li><a href="#" class="nav-link active text-white bg-secondary">Eğitmen olarak katıl</a></li>
+                    {% else %}
+                    <li><a href="/yeni_kurs" class="nav-link text-dark">Kurs Yayınla</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+
+
+
+            <form class="mt-5" method="POST">
+                <br>
+
+                <div class="container  align-middle">
+                    <div class="row">
+                    
+
+                        <div class="col-sm-5  align-middle">
+                            <br><br><br><br>
+                            <h3> Eğitmen Olarak Bize katılın </h3>
+                            <p>Her şey 1 video ile başlar :)</p>
+                            <p> İster yıllardır, ister ilk defa eğitim veriyor olun, ilgi çekici bir kurs
+                                oluşturabilirsiniz.</p>
+
+                            <a href="/egitmen_yap/{{current_user.id}}" class="btn btn-lg btn-warning ">Eğitmen Ol</a>
+                        </div>
+
+                        <div class="col-sm-7">
+                            <img src="https://www.ozeldersalani.com/frontend/images/ozel-ders-vermek.png" alt="">
+                        </div>
+                    </div>
+                    <br><br><br>
+                </div>
+
+            </form>
+
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}
