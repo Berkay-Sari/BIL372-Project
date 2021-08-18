@@ -20,9 +20,9 @@ def home():
         if looking_for:
             return redirect(url_for('views.arama', looking_for = looking_for))
     #BEST 5 KURS
-    result = db.engine.execute("SELECT Kurs.id,isim,kategori,first_name,last_name, Kurs.image_file, Kurs.date AS kurs_date FROM Kurs, User WHERE Kurs.egitmen_id = User.id AND Kurs.id IN (SELECT kurs_id FROM subs GROUP BY kurs_id ORDER BY COUNT(*) DESC LIMIT 5)")
+    result = db.engine.execute("SELECT Kurs.id,isim,kategori,first_name,last_name, Kurs.image_file, Kurs.date AS kurs_date,  kisa_aciklama FROM Kurs, User WHERE Kurs.egitmen_id = User.id AND Kurs.id IN (SELECT kurs_id FROM subs GROUP BY kurs_id ORDER BY COUNT(*) DESC LIMIT 5)")
     #BEST 3 YAZILIM
-    result2 = db.engine.execute("SELECT Kurs.id,isim,kategori,first_name,last_name, Kurs.image_file, Kurs.date AS kurs_date"+
+    result2 = db.engine.execute("SELECT Kurs.id,isim,kategori,first_name,last_name, Kurs.image_file, Kurs.date AS kurs_date,  kisa_aciklama"+
             " FROM Kurs, User" +
             " WHERE Kurs.egitmen_id = User.id AND Kurs.id IN" +
             " (SELECT kurs_id" +
@@ -30,9 +30,9 @@ def home():
             " WHERE kurs_id IN (SELECT id FROM Kurs WHERE kategori = \"Yazılım\")" +
             " GROUP BY kurs_id" +
             " ORDER BY COUNT(*)" +
-            " DESC LIMIT 3)")
+            " DESC LIMIT 5)")
     #BEST 3 DİL
-    result3 = db.engine.execute("SELECT Kurs.id,isim,kategori,first_name,last_name, Kurs.image_file, Kurs.date AS kurs_date"+
+    result3 = db.engine.execute("SELECT Kurs.id,isim,kategori,first_name,last_name, Kurs.image_file, Kurs.date AS kurs_date, kisa_aciklama"+
             " FROM Kurs, User" +
             " WHERE Kurs.egitmen_id = User.id AND Kurs.id IN" +
             " (SELECT kurs_id" +
@@ -40,7 +40,7 @@ def home():
             " WHERE kurs_id IN (SELECT id FROM Kurs WHERE kategori = \"Dil\")" +
             " GROUP BY kurs_id" +
             " ORDER BY COUNT(*)" +
-            " DESC LIMIT 3)")
+            " DESC LIMIT 5)")
     return render_template("home.html", user=current_user, query = result, query2 = result2, query3 = result3)
           
 @views.route('/arama/<looking_for>', methods=['GET', 'POST'])
