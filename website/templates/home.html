@@ -228,22 +228,19 @@
                         <img class="rounded" src="static/kurs_pics/{{item.image_file}}" alt="{{item.isim}}"
                             class="rounded-rect" width="100%" height="200">
 
-                        <div class="card-body">
-                            <h4>{{item.isim}}</h4>
-                            <p class="card-text">{{item.kisa_aciklama}}</p>
-                            <p class="card-text">{{item.kategori}} ve {{item.egitmen_id}}</p>
-                            {% for egitmen in egitmenler %}
-                            {% if egitmen.id == item.egitmen_id %}
-                            <p>{{egitmen.first_name}}</p>
-                            <small class="text-muted">{{egitmen.date}}</small>
-                            {% endif %}
-                            {% endfor %}
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="kurs_profil/{{item.id}}" type="button"
-                                    class="btn btn-outline-dark btn-warning">Kursa git</a>
-
+                            <div class="card-body">
+                                <h4>{{item.isim}}</h4>
+                                <p class="card-text">{{item.kisa_aciklama}}</p>
+                                <p class="card-text">{{item.kategori}}</p>
+                                <p>{{item.first_name}} {{item.last_name}}</p>
+                                <small class="text-muted">{{item.date}}</small>
+                                
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="kurs_profil/{{item.id}}" type="button"
+                                        class="btn btn-outline-dark btn-warning">Kursa git</a>
+    
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
                 {% endfor %}
@@ -265,22 +262,19 @@
                         <img class="rounded" src="static/kurs_pics/{{item.image_file}}" alt="{{item.isim}}"
                             class="rounded-rect" width="100%" height="200">
 
-                        <div class="card-body">
-                            <h4>{{item.isim}}</h4>
-                            <p class="card-text">{{item.kisa_aciklama}}</p>
-                            <p class="card-text">{{item.kategori}} ve {{item.egitmen_id}}</p>
-                            {% for egitmen in egitmenler %}
-                            {% if egitmen.id == item.egitmen_id %}
-                            <p>{{egitmen.first_name}}</p>
-                            <small class="text-muted">{{egitmen.date}}</small>
-                            {% endif %}
-                            {% endfor %}
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="kurs_profil/{{item.id}}" type="button"
-                                    class="btn btn-outline-dark btn-warning">Kursa git</a>
-
+                            <div class="card-body">
+                                <h4>{{item.isim}}</h4>
+                                <p class="card-text">{{item.kisa_aciklama}}</p>
+                                <p class="card-text">{{item.kategori}}</p>
+                                <p>{{item.first_name}} {{item.last_name}}</p>
+                                <small class="text-muted">{{item.date}}</small>
+                                
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="kurs_profil/{{item.id}}" type="button"
+                                        class="btn btn-outline-dark btn-warning">Kursa git</a>
+    
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
                 {% endfor %}
@@ -305,13 +299,10 @@
                         <div class="card-body">
                             <h4>{{item.isim}}</h4>
                             <p class="card-text">{{item.kisa_aciklama}}</p>
-                            <p class="card-text">{{item.kategori}} ve {{item.egitmen_id}}</p>
-                            {% for egitmen in egitmenler %}
-                            {% if egitmen.id == item.egitmen_id %}
-                            <p>{{egitmen.first_name}}</p>
-                            <small class="text-muted">{{egitmen.date}}</small>
-                            {% endif %}
-                            {% endfor %}
+                            <p class="card-text">{{item.kategori}}</p>
+                            <p>{{item.first_name}} {{item.last_name}}</p>
+                            <small class="text-muted">{{item.date}}</small>
+                            
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="kurs_profil/{{item.id}}" type="button"
                                     class="btn btn-outline-dark btn-warning">Kursa git</a>
